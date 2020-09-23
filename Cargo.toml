@@ -59,6 +59,7 @@ eip_2537 = ["mappings"]
 eip_2357_c_api = ["eip_2537"]
 eip_196 = ["once_cell", "num-bigint", "num-traits"]
 eip_196_c_api = ["eip_196"]
+celo_1157 = []
 
 [profile.release]
 incremental = false

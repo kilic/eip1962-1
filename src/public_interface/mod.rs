@@ -32,6 +32,9 @@ pub mod eip2537;
 #[cfg(feature = "eip_196")]
 pub mod eip196;
 
+#[cfg(feature = "celo_1157")]
+pub mod celo1157;
+
 pub struct API;
 
 impl API {

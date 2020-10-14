@@ -423,52 +423,6 @@ impl CELO1157Executor {
 
         Ok(result)
     }
-
-    // pub fn map_fp_to_g1<'a>(
-    //     input: &'a [u8],
-    // ) -> Result<[u8; SERIALIZED_G1_POINT_BYTE_LENGTH], ApiError> {
-    //     if input.len() != SERIALIZED_FP_BYTE_LENGTH {
-    //         return Err(ApiError::InputError(
-    //             "invalid input length for Fp to G1 to curve mapping".to_owned(),
-    //         ));
-    //     }
-    //     let (fe, _) = decode_fp::decode_fp_oversized(
-    //         input,
-    //         SERIALIZED_FP_BYTE_LENGTH,
-    //         &bls12_377::BLS12_377_FIELD,
-    //     )?;
-    //     let point = mapping::fp_to_g1(&fe)?;
-
-    //     let mut output = [0u8; SERIALIZED_G1_POINT_BYTE_LENGTH];
-    //     let as_vec = decode_g1::serialize_g1_point(SERIALIZED_FP_BYTE_LENGTH, &point)?;
-
-    //     output.copy_from_slice(&as_vec[..]);
-
-    //     Ok(output)
-    // }
-
-    // pub fn map_fp2_to_g2<'a>(
-    //     input: &'a [u8],
-    // ) -> Result<[u8; SERIALIZED_G2_POINT_BYTE_LENGTH], ApiError> {
-    //     if input.len() != SERIALIZED_FP2_BYTE_LENGTH {
-    //         return Err(ApiError::InputError(
-    //             "invalid input length for Fp2 to G2 to curve mapping".to_owned(),
-    //         ));
-    //     }
-    //     let (fe, _) = decode_fp::decode_fp2_oversized(
-    //         input,
-    //         SERIALIZED_FP_BYTE_LENGTH,
-    //         &bls12_377::BLS12_377_EXTENSION_2_FIELD,
-    //     )?;
-    //     let point = mapping::fp2_to_g2(&fe)?;
-
-    //     let mut output = [0u8; SERIALIZED_G2_POINT_BYTE_LENGTH];
-    //     let as_vec = decode_g2::serialize_g2_point_in_fp2(SERIALIZED_FP_BYTE_LENGTH, &point)?;
-
-    //     output.copy_from_slice(&as_vec[..]);
-
-    //     Ok(output)
-    // }
 }
 
 #[cfg(test)]
@@ -1102,80 +1056,6 @@ mod test {
         pb.finish_with_message("Completed");
     }
 
-    // #[test]
-    // fn generate_fp_to_g1_mapping_vectors() {
-    //     let mut rng =
-    //         XorShiftRng::from_seed([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
-
-    //     let pb = ProgressBar::new(1u64);
-
-    //     pb.set_style(
-    //         ProgressStyle::default_bar()
-    //             .template("[{elapsed_precise}|{eta_precise}] {bar:50} {pos:>7}/{len:7} {msg}")
-    //             .progress_chars("##-"),
-    //     );
-
-    //     pb.set_length(NUM_TESTS as u64);
-
-    //     let mut writer = make_csv_writer("src/test/test_vectors/celo1157/fp_to_g1.csv");
-    //     assert!(writer.is_some());
-    //     let modulus = BigUint::from_str_radix("258664426012969094010652733694893533536393512754914660539884262666720468348340822774968888139573360124440321458177", 10).unwrap();
-
-    //     for _ in 0..NUM_TESTS {
-    //         let (_, input) = make_random_fp_with_encoding(&mut rng, &modulus);
-
-    //         let api_result = CELO1157Executor::map_fp_to_g1(&input).unwrap();
-    //         assert!(api_result.len() == SERIALIZED_G1_POINT_BYTE_LENGTH);
-
-    //         if let Some(writer) = writer.as_mut() {
-    //             writer
-    //                 .write_record(&[&hex::encode(&input[..]), &hex::encode(&api_result[..])])
-    //                 .expect("must write a test vector");
-    //         }
-
-    //         pb.inc(1);
-    //     }
-
-    //     pb.finish_with_message("Completed");
-    // }
-
-    // #[test]
-    // fn generate_fp2_to_g2_mapping_vectors() {
-    //     let mut rng =
-    //         XorShiftRng::from_seed([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
-
-    //     let pb = ProgressBar::new(1u64);
-
-    //     pb.set_style(
-    //         ProgressStyle::default_bar()
-    //             .template("[{elapsed_precise}|{eta_precise}] {bar:50} {pos:>7}/{len:7} {msg}")
-    //             .progress_chars("##-"),
-    //     );
-
-    //     pb.set_length(NUM_TESTS as u64);
-
-    //     let mut writer = make_csv_writer("src/test/test_vectors/celo1157/fp2_to_g2.csv");
-    //     assert!(writer.is_some());
-    //     let modulus = BigUint::from_str_radix("258664426012969094010652733694893533536393512754914660539884262666720468348340822774968888139573360124440321458177", 10).unwrap();
-
-    //     for _ in 0..NUM_TESTS {
-    //         let (_, input) = make_random_fp2_with_encoding(&mut rng, &modulus);
-
-    //         let api_result = CELO1157Executor::map_fp2_to_g2(&input).unwrap();
-    //         assert!(api_result.len() == SERIALIZED_G2_POINT_BYTE_LENGTH);
-
-    //         if let Some(writer) = writer.as_mut() {
-    //             writer
-    //                 .write_record(&[&hex::encode(&input[..]), &hex::encode(&api_result[..])])
-    //                 .expect("must write a test vector");
-    //         }
-
-    //         pb.inc(1);
-    //     }
-
-    //     pb.finish_with_message("Completed");
-    // }
-
     #[test]
     fn generate_pairing_vectors() {
         let mut rng =
@@ -1557,28 +1437,6 @@ mod test {
 
         assert!(success);
     }
-
-    // #[test]
-    // fn test_external_fp_to_g1_vectors() {
-    //     let p = "src/test/test_vectors/celo1157/extras/fp_to_g1.csv";
-
-    //     let f = |input: &[u8]| CELO1157Executor::map_fp_to_g1(input).map(|r| r.to_vec());
-
-    //     let success = run_on_test_inputs(p, true, f);
-
-    //     assert!(success);
-    // }
-
-    // #[test]
-    // fn test_external_fp2_to_g2_vectors() {
-    //     let p = "src/test/test_vectors/celo1157/extras/fp2_to_g2.csv";
-
-    //     let f = |input: &[u8]| CELO1157Executor::map_fp2_to_g2(input).map(|r| r.to_vec());
-
-    //     let success = run_on_test_inputs(p, true, f);
-
-    //     assert!(success);
-    // }
 
     #[test]
     fn test_external_g2_multiexp_vectors() {

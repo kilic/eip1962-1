@@ -1057,6 +1057,33 @@ mod test {
     }
 
     #[test]
+    fn pairing_must_be_false() {
+        let mut rng =
+            XorShiftRng::from_seed([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+
+        let mut input = Vec::with_capacity(
+            SERIALIZED_G1_POINT_BYTE_LENGTH * 2 + SERIALIZED_G2_POINT_BYTE_LENGTH * 2,
+        );
+
+        let (mut pa1, _) = make_random_g1_with_encoding(&mut rng);
+        let (mut pa2, _) = make_random_g2_with_encoding(&mut rng);
+        let (mut pb1, _) = make_random_g1_with_encoding(&mut rng);
+        let (mut pb2, _) = make_random_g2_with_encoding(&mut rng);
+
+        input.extend(encode_g1(&pa1));
+        input.extend(encode_g2(&pa2));
+        input.extend(encode_g1(&pb1));
+        input.extend(encode_g2(&pb2));
+
+        let api_result = CELO1157Executor::pair(&input).unwrap();
+        assert!(api_result.len() == SERIALIZED_PAIRING_RESULT_BYTE_LENGTH);
+
+        // println!("{}", hex::encode(&input[..]));
+
+        println!("{}", hex::encode(&api_result[..]));
+    }
+
+    #[test]
     fn generate_pairing_vectors() {
         let mut rng =
             XorShiftRng::from_seed([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);

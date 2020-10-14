@@ -62,4 +62,6 @@ eip_196_c_api = ["eip_196"]
 celo_1157 = []
 
 [profile.release]
-incremental = false
+lto = "thin"
+# codegen-units = 1
+# incremental = false

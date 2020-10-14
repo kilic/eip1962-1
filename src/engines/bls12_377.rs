@@ -120,6 +120,7 @@ pub const BLS12_377_EXTENSION_2_FIELD: Extension2<'static, U384Repr, PrimeField<
             BLS12_377_EXTENSION_2_FROB_COEFF_0,
             BLS12_377_EXTENSION_2_FROB_COEFF_1,
         ],
+        non_residue_mul_policy: NonResidueMulPolicy::Full,
         frobenius_coeffs_are_calculated: true,
     };
 
@@ -177,10 +178,6 @@ pub const BLS12_377_B_FOR_G1: Fp<'static, U384Repr, PrimeField<U384Repr>> =
         repr: BLS12_377_B_FOR_G1_REPR,
     };
 
-// var b2 = &fe2{
-//     fe{0, 0, 0, 0, 0, 0},
-//     fe{0x8072266666666685, 0x8df55926899999a9, 0x7fe4561ad64f34cf, 0xb95da6d8b6e4f01b, 0x4b747cccfc142743, 0x0039c3fa70f49f43},
-// }
 const BLS12_377_B_FOR_G2_C0_REPR: U384Repr = U384Repr([
     0x0000000000000000,
     0x0000000000000000,
@@ -505,6 +502,7 @@ pub const BLS12_377_EXTENSION_6_FIELD: Extension3Over2<'static, U384Repr, PrimeF
             BLS12_377_FP6_FROB_C2_4,
             BLS12_377_FP6_FROB_C2_5,
         ],
+        non_residue_mul_policy: NonResidueMulPolicyFp6::ZeroOne,
         frobenius_coeffs_are_calculated: true,
     };
 
